@@ -1,0 +1,12 @@
+# Write your MySQL query statement below
+select customer_number
+from Orders 
+group by customer_number 
+having count(customer_number) = (
+    select max(order_count)
+    from (
+        select count(customer_number) as order_count 
+        from orders 
+        group by customer_number 
+    ) x
+);
